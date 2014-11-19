@@ -1,0 +1,59 @@
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <RelativeLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+
+         <EditText
+            android:id="@+id/editText1"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@android:id/tabs"
+            android:ems="10"
+            android:inputType="text" 
+            android:hint="Search"
+            android:paddingRight="60dip"
+            android:drawableLeft="@drawable/untitled"/>
+
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="330dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/editText1" 
+           >
+
+        </FrameLayout>
+
+        
+<!-- 
+  <EditText
+            android:id="@+id/sea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@android:id/tabcontent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:ems="10"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
+        </EditText>
+ -->
+
+
+
+    </RelativeLayout>
+    
+    
+</TabHost>
