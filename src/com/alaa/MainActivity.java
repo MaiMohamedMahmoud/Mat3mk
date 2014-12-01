@@ -52,21 +52,22 @@ public class MainActivity extends TabActivity{
 		 SharedPreferences pref = getSharedPreferences("PREF_NAME", MODE_PRIVATE);
 		    pref.edit().putString("Editing", ed.getText().toString()).commit();
 		        final TabHost tabHost = getTabHost();
-		         
+		          
 		        
 		        // Inbox Tab
 		        TabSpec inboxSpec = tabHost.newTabSpec(INBOX_SPEC);
 		        // Tab Icon
 		        inboxSpec.setIndicator(INBOX_SPEC);
 		        Intent inboxIntent = new Intent(this, Cairo_list.class);
-		       
+		        
 		        // Tab Content
 		        inboxSpec.setContent(inboxIntent);
 	
 		        // Outbox Tab
 		        TabSpec outboxSpec = tabHost.newTabSpec(OUTBOX_SPEC);
 		        outboxSpec.setIndicator(OUTBOX_SPEC);
-		        Intent outboxIntent = new Intent(this, Alex_list.class);
+		        Intent outboxIntent = new Intent(this, CityList.class);
+//		        outboxIntent.putExtra("name", "Alex");
 		        outboxSpec.setContent(outboxIntent);
 		         
 		        // Profile Tab

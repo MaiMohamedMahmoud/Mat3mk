@@ -51,7 +51,7 @@ public class Alex_list extends  ListActivity implements OnItemClickListener,OnTo
 	         * */
          if (isFirstTime()) {
        	    // insert data 
-       	  Log.d("kjjdkshdjs","dlkjaedw");
+       	    Log.d("kjjdkshdjs","dlkjaedw");
  	        Log.d("Insert: ", "Inserting .."); 
 	 	       db.AddAlex(new Rest("مطعم ملوكية","32 ش النصر معالم الطريق: داخل فندق امون المنشية ", "034818351"));
 	 	       db.AddAlex(new Rest("حسني المندرة","المندرة - شارع جمال عبد الناصر - الاسكندرية", "035507799"));
@@ -156,5 +156,3 @@ public class Alex_list extends  ListActivity implements OnItemClickListener,OnTo
 		return false;
 	}
 }
-
-
