@@ -1,5 +1,6 @@
 package com.alaa;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,18 +33,16 @@ import android.widget.AdapterView.OnItemClickListener;
  * @version 1.1.0
  * 
  */
-public class CityList extends ListActivity implements OnItemClickListener,
-
-OnTouchListener {
+public class CityList extends ListActivity implements OnItemClickListener,OnTouchListener {
 
 	ListView s;
 	List<String> name_res;
 	DatabaseHandler db;
 	int flag = 0;
 	ArrayList<HashMap<String, String>> cityListMap;
-	private String _name = "Assuit";
-	private String _address = "Adress";
-	private int _city_code = 0;
+	private String _name ;
+	private String _address ;
+	private int _city_code ;
 
 	final int CITY_ASSIUT = 0;
 	final int CITY_ALEX = 1;
@@ -97,20 +96,35 @@ OnTouchListener {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-	    
+	    Intent newIntent = getIntent();
+	 
 		switch (this._city_code) {
 		case 0:
-			setContentView(R.layout.alex);
+			
+			  _city_code=  newIntent.getIntExtra("city_code",2);
+				 _address = newIntent.getStringExtra("address");
+				 _name = newIntent.getStringExtra("name");
+				 Log.i("City Code","City Code"+ _name +_city_code);
+			setContentView(R.layout.cairo_list);
 			
 			init_Db();
+			  
 			break;
 		case 1:
-			setContentView(R.layout.assuit);
+			   _city_code=   newIntent.getIntExtra("city_code", 1);
+				 _address = newIntent.getStringExtra("address");
+				 _name = newIntent.getStringExtra("name");
+				 Log.i("City Code","City Code "+ _name +_city_code);
+			setContentView(R.layout.alex);
 			init_Db();
 			break;
 		case 2:
-			setContentView(R.layout.cairo_list);
-			init_Db();
+			 _city_code=  newIntent.getIntExtra("city_code",0);
+			 _address = newIntent.getStringExtra("address");
+			 _name = newIntent.getStringExtra("name");
+			 Log.i("City Code","City Code "+ _name +_city_code);
+		setContentView(R.layout.assuit);
+		init_Db();
 			break;
 		}
 		
@@ -122,21 +136,21 @@ OnTouchListener {
 
 		switch (this._city_code) {
 		case 0:
-			Alex_Fun();
+			Cairo_Fun();
 			
 			break;
 		case 1:
-			Assuit_Fun();
+			Alex_Fun();
 			break;
 		case 2:
-			Cairo_Fun();
+			Assuit_Fun();	
 			break;
 		}
 	}
 
-	private void ReadAlldata() {
-		// Reading all contacts
-		Log.d("Reading: ", "Reading all contacts..");
+ private void Read_Alex()
+	{
+	 Log.d("Reading: ", "Reading all contacts..");
 
 		List<Rest> contacts = db.getAllAlex();
 
@@ -157,16 +171,151 @@ OnTouchListener {
 		
 		
 		ListAdapter adapter = new SimpleAdapter(
-                   CityList.this, cityListMap,
-                   R.layout.alex_list_item, new String[] { _name, _address },
-                   new int[] { R.id.Name, R.id.Address});
-           // updating listview
-           setListAdapter(adapter);
+                CityList.this, cityListMap,
+                R.layout.alex_list_item, new String[] { _name, _address },
+                new int[] { R.id.Name, R.id.Address});
+        // updating listview
+        setListAdapter(adapter);
 			 s.setCacheColorHint(Color.BLACK);
 			 s.setBackgroundColor(Color.BLACK);
 			 
 			 s.setOnItemClickListener(this);
 			 s.setOnTouchListener(this);
+	}
+
+ 
+ private void Read_Assuit()
+ {
+	 Log.d("Reading: ", "Reading all contacts..");
+
+		List<Rest> contacts = db.getAllAssuit();
+
+		for (Rest cn : contacts) {
+			HashMap<String, String> map = new HashMap<String, String>();
+			String log = "Id: " + cn.getID() + " ,Name: " + cn.getName()
+					+ " ,Address: " + cn.getAddress() + ",Phone:"
+					+ cn.getPhoneNumber();
+			// Writing Contacts to log
+			name_res.add(cn.getName());
+
+			map.put(_address, cn.getAddress());
+			map.put(_name, cn.getName());
+			// adding HashList to ArrayList
+			cityListMap.add(map);
+			Log.d("Name: ", log);
+		}
+		// ArrayAdapter<String> a = new
+		// ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,name_res);
+		// s.setAdapter(a);
+
+		ListAdapter adapter = new SimpleAdapter(CityList.this, cityListMap,
+				R.layout.assuit_list_item, new String[] { _name,
+						_address }, new int[] { R.id.Name, R.id.Address });
+		// updating listview
+		setListAdapter(adapter);
+
+		s.setCacheColorHint(Color.BLACK);
+		s.setBackgroundColor(Color.BLACK);
+
+		s.setOnItemClickListener(this);
+		s.setOnTouchListener(this);
+ }
+
+ 
+ private void Read_Cairo()
+ {
+
+     // Reading all contacts
+        Log.d("Reading: ", "Reading all contacts.."); 
+        
+        List<Rest> contacts = db.getAllContacts();       
+        
+        for (Rest cn : contacts) {
+            
+        	 HashMap<String, String> map = new HashMap<String, String>();
+        	String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Address: " + cn.getAddress() + ",Phone:"+cn.getPhoneNumber();
+                // Writing Contacts to log
+        	name_res.add(cn.getName());
+            
+        	map.put(_address, cn.getAddress());
+        	map.put(_name, cn.getName());
+             // adding HashList to ArrayList
+             cityListMap.add(map);
+        Log.d("Name: ", log);
+    }
+        ListAdapter adapter = new SimpleAdapter(
+                CityList.this, cityListMap,
+                R.layout.cairo_list_item, new String[] { _name, _address },
+                new int[] { R.id.Name, R.id.Address});
+        // updating listview
+        setListAdapter(adapter);
+        
+
+        Intent i = getIntent();
+    //	Toast.makeText(Cairo_list.this, i.getStringExtra("M"), Toast.LENGTH_SHORT).show();
+
+    //	Toast.makeText(Cairo_list.this,i.getStringExtra("tabid"), Toast.LENGTH_SHORT).show();
+    	if(i.getStringExtra("M")!=null)
+    	{
+    		  db = new DatabaseHandler(this);
+    	cityListMap = new ArrayList<HashMap<String,String>>();
+    	List<Rest> contact = 	db.getContactName(i.getStringExtra("M"),i.getStringExtra("tabid"));
+    	for (Rest cn : contact) {
+            
+       	 HashMap<String, String> map = new HashMap<String, String>();
+       	String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Address: " + cn.getAddress() + ",Phone:"+cn.getPhoneNumber();
+               // Writing Contacts to log
+       	
+           
+       	map.put(_address, cn.getAddress());
+       	map.put(_name, cn.getName());
+            // adding HashList to ArrayList
+            cityListMap.add(map);
+       Log.d("Name: ", log);
+    }
+    	
+
+      
+                ListAdapter a = new SimpleAdapter(
+                        CityList.this, cityListMap,
+                        R.layout.cairo_list_item, new String[] { _name, _address },
+                        new int[] { R.id.Name, R.id.Address});
+                // updating listview
+                setListAdapter(a);
+    	} 
+	     // ArrayAdapter<String> a = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,name_res);
+	     // s.setAdapter(a);
+		
+       
+		 s.setCacheColorHint(Color.BLACK);
+		 s.setBackgroundColor(Color.BLACK);
+		 
+		 
+		 
+		 s.setOnItemClickListener(this);
+		
+		s.setOnTouchListener(this); 
+		 
+	
+ }
+ 
+private void ReadAlldata() {
+		// Reading all contacts
+		
+		switch(this._city_code)
+		{
+		case 0:
+			
+			Read_Cairo();
+			break;
+		case 1:
+			  Read_Alex();
+			break;
+		case 2:
+			Read_Assuit();
+			break;
+		}
+		
 	}
 
 	private boolean isFirstTime() {
@@ -253,7 +402,7 @@ OnTouchListener {
 		/**
 		 * CRUD Operations
 		 * */
-		if (isFirstTime()) {
+		if (!(isFirstTime())) {
 			// insert data
 			Log.d("kjjdkshdjs", "dlkjaedw");
 			Log.d("Insert: ", "Inserting ..");
@@ -455,7 +604,7 @@ OnTouchListener {
 		/**
 		 * CRUD Operations
 		 * */
-		if (isFirstTime()) {
+		if (!(isFirstTime())) {
 			// insert data
 			Log.d("kjjdkshdjs", "dlkjaedw");
 			Log.d("Insert: ", "Inserting ..");

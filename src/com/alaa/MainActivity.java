@@ -58,28 +58,44 @@ public class MainActivity extends TabActivity{
 		        TabSpec inboxSpec = tabHost.newTabSpec(INBOX_SPEC);
 		        // Tab Icon
 		        inboxSpec.setIndicator(INBOX_SPEC);
-		        Intent inboxIntent = new Intent(this, Cairo_list.class);
-		        
+		        Intent inboxIntent = new Intent(this, CityList.class);
+		        inboxIntent.putExtra("name", "Assuit");
+		        inboxIntent.putExtra("address", "Address");
+		        inboxIntent.putExtra("city_code", 0);
 		        // Tab Content
 		        inboxSpec.setContent(inboxIntent);
 	
 		        // Outbox Tab
 		        TabSpec outboxSpec = tabHost.newTabSpec(OUTBOX_SPEC);
 		        outboxSpec.setIndicator(OUTBOX_SPEC);
+		        
 		        Intent outboxIntent = new Intent(this, CityList.class);
-//		        outboxIntent.putExtra("name", "Alex");
+		        outboxIntent.putExtra("name", "Alex");
+		        outboxIntent.putExtra("address", "Address");
+		        outboxIntent.putExtra("city_code", 1  );
 		        outboxSpec.setContent(outboxIntent);
 		         
 		        // Profile Tab
 		        TabSpec profileSpec = tabHost.newTabSpec(PROFILE_SPEC);
 		        profileSpec.setIndicator(PROFILE_SPEC);
-		        Intent profileIntent = new Intent(this, Assuit_list.class);
+		        Intent profileIntent = new Intent(this, CityList.class);
+		        profileIntent.putExtra("name", "Cairo");
+		        profileIntent.putExtra("address", "Address");
+		        profileIntent.putExtra("city_code", 2);
 		        profileSpec.setContent(profileIntent);
 		         
 		        // Adding all TabSpec to TabHost
-		        tabHost.addTab(inboxSpec); // Adding Inbox tab
-		        tabHost.addTab(outboxSpec); // Adding Outbox tab
-		        tabHost.addTab(profileSpec); // Adding Profile tab
+		        //Assuit 0
+		        tabHost.addTab(inboxSpec);
+		        //Alex 1
+		        tabHost.addTab(outboxSpec);
+		        //Cairo 2
+		        tabHost.addTab(profileSpec); 
+
+		      
+		        // Adding Inbox tab
+		   // Adding Outbox tab
+		       // Adding Profile tab
 		     
 		    //for make colour in your tab 
 		    /*    for(int i=0;i<tabHost.getTabWidget().getChildCount();i++)

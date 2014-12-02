@@ -281,6 +281,8 @@ public class Assuit_list extends ListActivity implements OnItemClickListener,
 			editor.commit();
 		}
 		return !ranBefore;
+		
+		
 	}
 
 	@Override
